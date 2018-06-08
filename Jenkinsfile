@@ -18,14 +18,48 @@ pipeline {
             echo 'hello from iOS'
           }
         }
+        stage('android') {
+          steps {
+            sleep 5
+          }
+        }
+        stage('web') {
+          steps {
+            sh 'echo hello'
+          }
+        }
       }
     }
-    stage('Build') {
-      steps {
-        script {
-          sh "echo hi from script"
-        }
+    stage('Test And build') {
+      parallel {
+        stage('Build') {
+          steps {
+            script {
+              sh "echo hi from script"
+            }
 
+          }
+        }
+        stage('ios') {
+          steps {
+            sh 'printenv'
+          }
+        }
+        stage('android') {
+          steps {
+            sh 'echo hello android'
+          }
+        }
+        stage('web') {
+          steps {
+            sh 'echo hello'
+          }
+        }
+      }
+    }
+    stage('Deploy') {
+      steps {
+        node(label: 'shared')
       }
     }
   }
