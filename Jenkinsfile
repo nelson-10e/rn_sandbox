@@ -27,8 +27,8 @@ pipeline {
             image.pull()
             image.inside {
                 sh '''
-                ls
-                echo "hello from sdk"
+                cd android
+                ./gradlew clean build
                 '''
             }
         }
