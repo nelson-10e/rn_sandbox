@@ -8,11 +8,7 @@ pipeline {
         }
 
       }
-      steps {
-        script{
-            docker.build("runmymind/docker-android-sdk")
-        }
-      }
+
     }
     stage('build_deploy') {
       agent {
