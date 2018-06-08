@@ -9,15 +9,20 @@ pipeline {
           }
         }
         stage('iOS') {
-          agent any
+          agent {
+            node {
+              label 'ios'
+            }
+
+          }
           steps {
             echo 'ios Test And Build'
           }
         }
         stage('android') {
           agent {
-            docker {
-              image 'runmymind/docker-android-sdk'
+            node {
+              label 'shared'
             }
 
           }
@@ -26,6 +31,12 @@ pipeline {
           }
         }
         stage('web') {
+          agent {
+            node {
+              label 'shared'
+            }
+
+          }
           steps {
             echo 'web init'
           }
@@ -43,15 +54,20 @@ pipeline {
           }
         }
         stage('iOS') {
-          agent any
+          agent {
+            node {
+              label 'ios'
+            }
+
+          }
           steps {
             echo 'ios Test And Build'
           }
         }
         stage('android') {
           agent {
-            docker {
-              image 'runmymind/docker-android-sdk'
+            node {
+              label 'shared'
             }
 
           }
@@ -60,7 +76,12 @@ pipeline {
           }
         }
         stage('web') {
-          agent any
+          agent {
+            node {
+              label 'shared'
+            }
+
+          }
           steps {
             echo 'web build'
           }
@@ -76,15 +97,20 @@ pipeline {
           }
         }
         stage('iOS') {
-          agent any
+          agent {
+            node {
+              label 'ios'
+            }
+
+          }
           steps {
             echo 'iOS Deploy'
           }
         }
         stage('android') {
           agent {
-            docker {
-              image 'runmymind/docker-android-sdk'
+            node {
+              label 'shared'
             }
 
           }
@@ -93,6 +119,12 @@ pipeline {
           }
         }
         stage('web') {
+          agent {
+            node {
+              label 'shared'
+            }
+
+          }
           steps {
             echo 'web deploy'
           }
