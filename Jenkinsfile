@@ -1,10 +1,5 @@
 pipeline {
-  agent {
-    docker {
-      image 'runmymind/docker-android-sdk'
-    }
-
-  }
+  agent any
   stages {
     stage('Init') {
       parallel {
@@ -14,18 +9,25 @@ pipeline {
           }
         }
         stage('iOS') {
+          agent any
           steps {
-            echo 'hello from iOS'
+            echo 'ios Test And Build'
           }
         }
         stage('android') {
+          agent {
+            docker {
+              image 'runmymind/docker-android-sdk'
+            }
+
+          }
           steps {
-            sleep 5
+            echo 'android init'
           }
         }
         stage('web') {
           steps {
-            sh 'echo hello'
+            echo 'web init'
           }
         }
       }
@@ -40,26 +42,61 @@ pipeline {
 
           }
         }
-        stage('ios') {
+        stage('iOS') {
+          agent any
           steps {
-            sh 'printenv'
+            echo 'ios Test And Build'
           }
         }
         stage('android') {
+          agent {
+            docker {
+              image 'runmymind/docker-android-sdk'
+            }
+
+          }
           steps {
             sh 'echo hello android'
           }
         }
         stage('web') {
+          agent any
           steps {
-            sh 'echo hello'
+            echo 'web build'
           }
         }
       }
     }
     stage('Deploy') {
-      steps {
-        node(label: 'shared')
+      parallel {
+        stage('Deploy') {
+          agent any
+          steps {
+            echo 'deploy'
+          }
+        }
+        stage('iOS') {
+          agent any
+          steps {
+            echo 'iOS Deploy'
+          }
+        }
+        stage('android') {
+          agent {
+            docker {
+              image 'runmymind/docker-android-sdk'
+            }
+
+          }
+          steps {
+            echo 'android deploy'
+          }
+        }
+        stage('web') {
+          steps {
+            echo 'web deploy'
+          }
+        }
       }
     }
   }
