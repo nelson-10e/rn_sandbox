@@ -4,12 +4,14 @@ pipeline {
     stage('init') {
       agent {
         node {
-          label 'ios'
+          label 'shared'
         }
 
       }
       steps {
-        echo 'ios Test And Build'
+        script{
+            docker.build("runmymind/docker-android-sdk")
+        }
       }
     }
     stage('build_deploy') {
@@ -20,7 +22,15 @@ pipeline {
 
       }
       steps {
-        sh 'echo hello android'
+        script{
+            def image = docker.image("runmymind/docker-android-sdk")
+                                        image.pull()
+                                        image.inside {
+                                            sh '''
+                                            ls
+                                            '''
+                                        }
+        }
       }
     }
   }
