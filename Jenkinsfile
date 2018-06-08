@@ -4,6 +4,9 @@ pipeline {
     stage('Init') {
       parallel {
         stage('Init') {
+          environment {
+            ARTIFACTORY = 'hello'
+          }
           steps {
             echo 'Hello'
           }
