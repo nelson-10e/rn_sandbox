@@ -28,6 +28,10 @@ pipeline {
           }
           steps {
             echo 'android init'
+            script {
+              docker.build("runmymind/docker-android-sdk")
+            }
+
           }
         }
         stage('web') {
