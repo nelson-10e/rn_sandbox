@@ -8,7 +8,11 @@ pipeline {
         }
 
       }
-
+      steps {
+        script{
+        sh "echo init"
+        }
+      }
     }
     stage('build_deploy') {
       agent {
