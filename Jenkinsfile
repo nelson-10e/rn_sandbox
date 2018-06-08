@@ -24,12 +24,13 @@ pipeline {
       steps {
         script{
             def image = docker.image("runmymind/docker-android-sdk")
-                                        image.pull()
-                                        image.inside {
-                                            sh '''
-                                            ls
-                                            '''
-                                        }
+            image.pull()
+            image.inside {
+                sh '''
+                ls
+                echo "hello from sdk"
+                '''
+            }
         }
       }
     }
