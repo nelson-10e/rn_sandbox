@@ -23,7 +23,7 @@ pipeline {
       }
       steps {
         script{
-            def image = docker.image("runmymind/docker-android-sdk")
+            def image = docker.image("runmymind/docker-android-sdk:alpine-lazydl")
             image.pull()
             image.inside {
                 sh '''
