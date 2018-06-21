@@ -1,2 +1,2 @@
 *.pbxproj -text
-/CHANGELOG.md merge=union
+*.md merge=union
